@@ -1,0 +1,58 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Unit test / Coverage reports
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+
+# Virtual Environments
+venv/
+env/
+.env/
+.venv/
+ActiveState.venv/
+
+# Environment Variables (Contains sensitive passwords and secrets)
+.env
+.env.*
+!.env.example
+
+# Temporary Databases
+*.db
+*.sqlite
+*.sqlite3
+test_temp.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Terraform files
+.terraform/
+*.tfstate*
+*.tfvars
+*.tfvars.json
+.terraform.lock.hcl
+
+# Personal
+private_*.md

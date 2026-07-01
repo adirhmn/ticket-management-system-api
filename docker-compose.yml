@@ -1,0 +1,35 @@
+name: ticket-management-system-api
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    container_name: ticket_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tickets
+    ports:
+      - "5432:5432" # Exposed locally to allow database clients (pgAdmin/DBeaver) to connect
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: ticket_api
+    restart: unless-stopped
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app # Local source code mount for hot-reloading
+    ports:
+      - "8000:8000" # Exposed publicly on localhost for easy web browser testing
+    environment:
+      ENV: development
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/tickets
+      API_KEY: ${API_KEY}
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

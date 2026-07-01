@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "a9d701e6-347b-402a-9e12-32b0c16ad650",
+		"name": "Support Ticket API",
+		"description": "Postman Collection for testing the Support Ticket Management API endpoints locally or in production.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Utility",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check if the API server is healthy and running. This endpoint is public and does not require X-API-Key authentication."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "Create Ticket",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Automatically extract the created ticket ID and save it as a collection variable",
+									"var jsonData = pm.response.json();",
+									"if (jsonData && jsonData.success && jsonData.data && jsonData.data.id) {",
+									"    pm.collectionVariables.set(\"ticketId\", jsonData.data.id);",
+									"    console.log(\"Saved ticketId variable: \" + jsonData.data.id);",
+									"}",
+									"",
+
+									"// Validation test",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer_name\": \"John Doe\",\n    \"customer_email\": \"john.doe@example.com\",\n    \"subject\": \"Unable to log in\",\n    \"description\": \"Receiving error code 500 when logging into the dashboard using Google SSO.\",\n    \"priority\": \"high\",\n    \"status\": \"open\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tickets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets"
+							]
+						},
+						"description": "Creates a new support ticket. Restricts email formatting, allowed status values, and allowed priority values."
+					},
+					"response": []
+				},
+				{
+					"name": "List Tickets (Paginated & Searchable)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/tickets?page=1&page_size=10&status=open",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page offset index"
+								},
+								{
+									"key": "page_size",
+									"value": "10",
+									"description": "Limit of items per page"
+								},
+								{
+									"key": "status",
+									"value": "open",
+									"description": "Filter by exact ticket status (optional)"
+								},
+								{
+									"key": "search",
+									"value": "sso",
+									"description": "Broad keyword search across name, email, subject, or description (optional)",
+									"disabled": true
+								},
+								{
+									"key": "customer_name",
+									"value": "John",
+									"description": "Filter by partial customer name (optional)",
+									"disabled": true
+								},
+								{
+									"key": "customer_email",
+									"value": "john.doe@example.com",
+									"description": "Filter by partial customer email (optional)",
+									"disabled": true
+								},
+								{
+									"key": "subject",
+									"value": "login",
+									"description": "Filter by partial subject (optional)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Retrieve tickets. Supports page offsets, limit sizes, exact status filtering, individual column searches, and general broad query searches."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ticket by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/tickets/{{ticketId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets",
+								"{{ticketId}}"
+							]
+						},
+						"description": "Retrieve details of a single ticket by its UUID. Uses the collection variable 'ticketId' set automatically during creation."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ticket (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"in_progress\",\n    \"priority\": \"urgent\",\n    \"description\": \"Issue has been escalated to Tier 2 support. SSO login error has been reproduced.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tickets/{{ticketId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets",
+								"{{ticketId}}"
+							]
+						},
+						"description": "Perform a partial update on a ticket. Fields are optional but validated if sent."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/tickets/{{ticketId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets",
+								"{{ticketId}}"
+							]
+						},
+						"description": "Delete a support ticket by its UUID."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "test-api-key-12345",
+			"type": "string"
+		},
+		{
+			"key": "ticketId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
