@@ -12,7 +12,8 @@ To assist the review process, here are the direct links to the key components an
 2. **Local Test Results**: Static log of the Pytest suite run is in [test_results.txt](test_results.txt).
 3. **AWS Cost-Control Screenshot**: Located in [zero_spend_budget.png](zero_spend_budget.png) (Zero-Spend Budget configuration).
 4. **Terraform Infrastructure as Code**: Located in the [terraform/](terraform/) directory.
-5. **Postman Collection for Endpoint Testing**: Import [ticket-management-system-api.postman_collection.json](ticket-management-system-api.postman_collection.json).
+5. **Live Production API**: [http://15.232.154.184](http://15.232.154.184) (Interactive Swagger Docs: [http://15.232.154.184/docs](http://15.232.154.184/docs)).
+6. **Postman Collection for Endpoint Testing**: Import [ticket-management-system-api.postman_collection.json](ticket-management-system-api.postman_collection.json).
 
 ---
 
