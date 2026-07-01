@@ -15,6 +15,7 @@ To assist the review process, here are the direct links to the key components an
 5. **Live Production API**: [http://15.232.154.184](http://15.232.154.184) or [http://ec2-15-232-154-184.ap-southeast-3.compute.amazonaws.com](http://ec2-15-232-154-184.ap-southeast-3.compute.amazonaws.com) (Interactive Swagger Docs: [http://15.232.154.184/docs](http://15.232.154.184/docs)).
    *   🔑 **Live API Key for Testing**: `recruiter_demo_key_2026` (Include in the `X-API-Key` request header).
 6. **Postman Collection for Endpoint Testing**: Import [ticket-management-system-api.postman_collection.json](ticket-management-system-api.postman_collection.json).
+7. **Video Walkthrough (Google Drive)**: [API Walkthrough Video](https://drive.google.com/file/d/1ENfGRf9LbEfaxBrSVOfr_r_QsDPC6Q2S/view?usp=sharing) demonstrating endpoint functionality (GET list with pagination, PATCH, DELETE), AWS live logs streaming, and deployment.
 
 ---
 
