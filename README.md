@@ -1,4 +1,4 @@
-# Contact Center Support Tickets API
+# Ticket Management System API
 
 A production-ready Python FastAPI service built to manage support tickets, complete with authentication, database migrations, containerization, and a robust CI/CD deployment guide.
 
@@ -12,7 +12,8 @@ To assist the review process, here are the direct links to the key components an
 2. **Local Test Results**: Static log of the Pytest suite run is in [test_results.txt](test_results.txt).
 3. **AWS Cost-Control Screenshot**: Located in [zero_spend_budget.png](zero_spend_budget.png) (Zero-Spend Budget configuration).
 4. **Terraform Infrastructure as Code**: Located in the [terraform/](terraform/) directory.
-5. **Live Production API**: [http://15.232.154.184](http://15.232.154.184) (Interactive Swagger Docs: [http://15.232.154.184/docs](http://15.232.154.184/docs)).
+5. **Live Production API**: [http://15.232.154.184](http://15.232.154.184) or [http://ec2-15-232-154-184.ap-southeast-3.compute.amazonaws.com](http://ec2-15-232-154-184.ap-southeast-3.compute.amazonaws.com) (Interactive Swagger Docs: [http://15.232.154.184/docs](http://15.232.154.184/docs)).
+   *   🔑 **Live API Key for Testing**: `recruiter_demo_key_2026` (Include in the `X-API-Key` request header).
 6. **Postman Collection for Endpoint Testing**: Import [ticket-management-system-api.postman_collection.json](ticket-management-system-api.postman_collection.json).
 
 ---
