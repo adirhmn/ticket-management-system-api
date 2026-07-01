@@ -393,6 +393,9 @@ chmod +x deploy.sh
 
 ## 🛠️ Server Operations & Maintenance
 
+> [!TIP]
+> Make sure to navigate to the project root directory (`/home/ubuntu/ticket-management-system-api`) on the EC2 instance before running any of the `docker compose` commands below.
+
 ### How to View Logs
 - **FastAPI / App Logs**:
   ```bash
