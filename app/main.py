@@ -140,7 +140,7 @@ app.include_router(tickets.router)
 @app.get("/")
 def read_root():
     return {
-        "message": "Welcome to the Ticket API. Go to /docs for the Swagger interactive API documentation.",
+        "message": "Welcome to the Ticket Management System API. Go to /docs for the Swagger interactive API documentation.",
         "health_check": "/health",
         "docs": "/docs"
     }
